@@ -1,0 +1,73 @@
+version: '3.7'
+
+secrets:
+  mysql_database_name:
+    file: ./docker_secrets/mysql_database_name
+  mysql_user_name:
+    file: ./docker_secrets/mysql_user_name
+  mysql_user_password:
+    file: ./docker_secrets/mysql_user_password  
+
+services:
+  consul:
+    image: consul:1.5.0
+    ports: 
+      - 8500:8500
+    expose: 
+      - 8400
+      - 8500
+      - 8600
+      - 8600/udp
+    volumes:
+      - ./consul_agent_config/server:/consul/config
+  git2consul:
+    build:
+      context: ./git2consul      
+    environment:
+      CONSUL_SERVER_HOST: 'consul'
+      CONSUL_SERVER_PORT: '8500'
+      TIMEOUT_SECONDS: '3'
+    volumes: 
+      - ./git2consul/config:/etc/git2consul.d
+    command: '/bin/sh -c "/tmp/wait-for-it/wait-for-it.sh --host=$$CONSUL_SERVER_HOST --port=$$CONSUL_SERVER_PORT --timeout=$$TIMEOUT_SECONDS --strict -- /usr/bin/node /usr/lib/node_modules/git2consul --endpoint $$CONSUL_SERVER_HOST --port $$CONSUL_SERVER_PORT --config-file /etc/git2consul.d/config.json"'
+  mysql:
+    image: mysql:8.0.16
+    secrets:
+      - mysql_user_name
+      - mysql_user_password
+      - mysql_database_name
+    environment: 
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_USER_FILE: /run/secrets/mysql_user_name
+      MYSQL_PASSWORD_FILE: /run/secrets/mysql_user_password
+      MYSQL_DATABASE_FILE: /run/secrets/mysql_database_name
+    expose: 
+      - 3306
+  authorization:
+    depends_on:
+      - consul
+      - mysql
+    build: 
+      context: ./SpringCloudAuthorizationServer
+    secrets:    
+      - mysql_user_name
+      - mysql_user_password
+      - mysql_database_name
+    environment:
+      CONSUL_HOST: "consul"
+      CONSUL_PORT: 8500
+      MYSQL_HOST: "mysql"
+      MYSQL_PORT: 3306
+      MYSQL_DB_NAME_FILE: /run/secrets/mysql_database_name
+      MYSQL_USER_NAME_FILE: /run/secrets/mysql_user_name
+      MYSQL_USER_PASSWORD_FILE: /run/secrets/mysql_user_password
+    ports: 
+      - 8081:8081
+#  resource:
+#    depends_on: 
+#      - consul
+#      - mysql
+#    build:
+#      context: ./SpringCloudResourceServer
+#    ports: 
+#      - 8080:8080

@@ -1,0 +1,7 @@
+.vscode
+log
+consul_kv_init
+SpringCloudAuthorizationServer
+SpringCloudResourceServer
+dockerized-h2-db
+docker_secrets
