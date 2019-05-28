@@ -10,3 +10,6 @@
 [submodule "git2consul"]
 	path = git2consul
 	url = https://github.com/phobos-nik/git2consul
+[submodule "SpringCloudAuthorizationServer"]
+	path = SpringCloudAuthorizationServer
+	url = https://github.com/phobos-nik/SpringCloudAuthorizationServer
