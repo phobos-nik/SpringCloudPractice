@@ -1,0 +1,3 @@
+[submodule ".\\consul_kv_init\\"]
+	path = .\\consul_kv_init\\
+	url = https://github.com/phobos-nik/consul_kv_init
