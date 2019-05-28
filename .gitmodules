@@ -13,3 +13,6 @@
 [submodule "SpringCloudAuthorizationServer"]
 	path = SpringCloudAuthorizationServer
 	url = https://github.com/phobos-nik/SpringCloudAuthorizationServer
+[submodule "SpringCloudResourceServer"]
+	path = SpringCloudResourceServer
+	url = https://github.com/phobos-nik/SpringCloudResourceServer.git
