@@ -7,3 +7,6 @@
 [submodule "consul_agent_config"]
 	path = consul_agent_config
 	url = https://github.com/phobos-nik/consul_agent_config
+[submodule "git2consul"]
+	path = git2consul
+	url = https://github.com/phobos-nik/git2consul
