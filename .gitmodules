@@ -4,3 +4,6 @@
 [submodule "consul_kv_init"]
 	path = consul_kv_init
 	url = https://github.com/phobos-nik/consul_kv_init
+[submodule "consul_agent_config"]
+	path = consul_agent_config
+	url = https://github.com/phobos-nik/consul_agent_config
