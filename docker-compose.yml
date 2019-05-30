@@ -7,6 +7,18 @@ secrets:
     file: ./docker_secrets/mysql_user_name
   mysql_user_password:
     file: ./docker_secrets/mysql_user_password  
+  jwt_access_token_signing_key:
+    file: ./docker_secrets/jwt_access_token_signing_key
+  authorization_client_id:
+    file: ./docker_secrets/authorization_client_id
+  authorization_client_secret:
+    file: ./docker_secrets/authorization_client_secret
+  access_token_validity_seconds:
+    file: ./docker_secrets/access_token_validity_seconds
+  refresh_token_validity_seconds:
+    file: ./docker_secrets/refresh_token_validity_seconds
+  bcrypt_password_encoder_rounds_number:
+    file: ./docker_secrets/bcrypt_password_encoder_rounds_number
 
 services:
   consul:
@@ -61,6 +73,11 @@ services:
       MYSQL_DB_NAME_FILE: /run/secrets/mysql_database_name
       MYSQL_USER_NAME_FILE: /run/secrets/mysql_user_name
       MYSQL_USER_PASSWORD_FILE: /run/secrets/mysql_user_password
+      JWT_ACCESS_TOKEN_SIGNING_KEY: /run/secrets/jwt_access_token_signing_key
+      AUTHORIZATION_CLIENT_ID: /run/secrets/authorization_client_id
+      AUTHORIZATION_CLIENT_SECRET: /run/secrets/authorization_client_secret
+      ACCESS_TOKEN_VALIDITY_SECONDS: /run/secrets/access_token_validity_seconds
+      BCRYPT_PASSWORD_ENCODER_ROUNDS_NUMBER: /run/secrets/bcrypt_password_encoder_rounds_number
     ports: 
       - 8081:8081
 #  resource:
