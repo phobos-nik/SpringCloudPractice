@@ -65,6 +65,12 @@ services:
       - mysql_user_name
       - mysql_user_password
       - mysql_database_name
+      - jwt_access_token_signing_key
+      - authorization_client_id
+      - authorization_client_secret
+      - access_token_validity_seconds
+      - refresh_token_validity_seconds
+      - bcrypt_password_encoder_rounds_number
     environment:
       CONSUL_HOST: "consul"
       CONSUL_PORT: 8500
@@ -73,11 +79,12 @@ services:
       MYSQL_DB_NAME_FILE: /run/secrets/mysql_database_name
       MYSQL_USER_NAME_FILE: /run/secrets/mysql_user_name
       MYSQL_USER_PASSWORD_FILE: /run/secrets/mysql_user_password
-      JWT_ACCESS_TOKEN_SIGNING_KEY: /run/secrets/jwt_access_token_signing_key
-      AUTHORIZATION_CLIENT_ID: /run/secrets/authorization_client_id
-      AUTHORIZATION_CLIENT_SECRET: /run/secrets/authorization_client_secret
-      ACCESS_TOKEN_VALIDITY_SECONDS: /run/secrets/access_token_validity_seconds
-      BCRYPT_PASSWORD_ENCODER_ROUNDS_NUMBER: /run/secrets/bcrypt_password_encoder_rounds_number
+      JWT_ACCESS_TOKEN_SIGNING_KEY_FILE: /run/secrets/jwt_access_token_signing_key
+      AUTHORIZATION_CLIENT_ID_FILE: /run/secrets/authorization_client_id
+      AUTHORIZATION_CLIENT_SECRET_FILE: /run/secrets/authorization_client_secret
+      ACCESS_TOKEN_VALIDITY_SECONDS_FILE: /run/secrets/access_token_validity_seconds
+      REFRESH_TOKEN_VALIDITY_SECONDS_FILE: /run/secrets/refresh_token_validity_seconds
+      BCRYPT_PASSWORD_ENCODER_ROUNDS_NUMBER_FILE: /run/secrets/bcrypt_password_encoder_rounds_number
     ports: 
       - 8081:8081
 #  resource:
